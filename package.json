@@ -11,6 +11,7 @@
     "lint:dev": "next lint --fix"
   },
   "dependencies": {
+    "@googleapis/sheets": "^5.0.5",
     "@million/lint": "^0.0.73",
     "clsx": "^2.1.0",
     "million": "^3.0.6",
