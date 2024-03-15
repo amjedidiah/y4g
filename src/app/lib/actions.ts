@@ -1,32 +1,12 @@
 import { auth, sheets } from "@googleapis/sheets";
 import { TeamData } from "@/lib/types";
 import { cache } from "react";
+import { getThirdSunday } from "@/lib/utils";
 
 const sheetsAuth = new auth.GoogleAuth({
   keyFile: "./google.json",
   scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
-
-function getThirdSunday(month = new Date().getMonth()) {
-  // Create a new Date object for the provided month (0-indexed)
-  const date = new Date(new Date().getFullYear(), month, 1);
-
-  // Set the date to the first Sunday of the month
-  date.setDate(1 - (date.getDay() || 7)); // Adjust for Sunday (0-indexed)
-
-  // Loop to find the 3rd Sunday
-  for (let i = 0; i < 3; i++) {
-    date.setDate(date.getDate() + 7);
-  }
-
-  // Handle previous month if needed
-  if (month === 0) {
-    date.setMonth(11); // Set to December of previous year
-    date.setFullYear(date.getFullYear() - 1);
-  }
-
-  return date;
-}
 
 function isBetweenThirdSundays(date: Date) {
   // Get the 3rd Sundays of previous and current month

@@ -3,6 +3,7 @@ import useStickyHeader from "@/hooks/use-sticky-header";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Link as ScrollLink } from "react-scroll";
+import EventAction from "@/components/shared/event-action";
 
 export default function Header() {
   const isStickyHeader = useStickyHeader(60);
@@ -32,14 +33,7 @@ export default function Header() {
               </ScrollLink>
             </li>
           </ul>
-          <a
-            href="https://forms.gle/TrXCeWSZBZKShyNY9"
-            target="_blank"
-            rel="noopener"
-            className="bg-secondary py-3 px-5 rounded-md shadow-lg"
-          >
-            Register
-          </a>
+          <EventAction isShort />
         </nav>
       </div>
     </header>
