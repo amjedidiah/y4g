@@ -8,7 +8,7 @@
     }
 
     body {
-        @apply min-h-full;
+        @apply min-h-full bg-black;
     }
 
     h1, h2, h3, h4, h5, a, button {

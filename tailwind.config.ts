@@ -22,6 +22,7 @@ const config: Config = {
         dark: "#010000",
         primary: "#fbab0d",
         secondary: "#cf0a05",
+        ash: "#cccccc",
       },
     },
   },

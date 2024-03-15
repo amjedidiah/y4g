@@ -11,7 +11,10 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
     >
       <body>
         <Header />
-        <main className="mt-20">{children}</main>
+        <main className="mt-20">
+          <div id="top" />
+          {children}
+        </main>
       </body>
     </html>
   );

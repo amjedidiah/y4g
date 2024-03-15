@@ -1,6 +1,5 @@
 import HomeJumbo from "@/components/home/home-jumbo";
-import TeamStats from "@/components/home/team-stats";
-import { getTeamData } from "@/lib/actions";
+import TeamsStatsContainer from "@/components/home/teams-stats/teams-stats-container";
 import { Metadata } from "next";
 import { Fragment } from "react";
 
@@ -12,14 +11,11 @@ export const metadata: Metadata = {
 
 export const revalidate = 60 * 5;
 
-export default async function Home() {
-  const teamData = await getTeamData();
-  console.log(teamData);
-
+export default function Home() {
   return (
     <Fragment>
       <HomeJumbo />
-      <TeamStats />
+      <TeamsStatsContainer />
     </Fragment>
   );
 }

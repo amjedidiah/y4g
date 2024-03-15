@@ -9,7 +9,7 @@ export default function HomeJumbo() {
       <article className="container h-full grid lg:grid-cols-[1fr,400px] xl:grid-cols-[1fr,475px] gap-20 lg:gap-14 xl:gap-20 items-center pt-6 pb-20 sm:pt-10 sm:pb-24 lg:py-12">
         <div className="flex flex-col gap-1 sm:gap-2 max-lg:items-center max-lg:text-center">
           <div>
-            <h5 className="uppercase relative max-sm:top-1">
+            <h5 className="uppercase relative max-sm:top-1 text-lg">
               <span className="text-primary font-bold">{currentMonth}</span>{" "}
               edition
             </h5>
