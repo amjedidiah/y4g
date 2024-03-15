@@ -4,8 +4,14 @@ import { cache } from "react";
 import { getThirdSunday } from "@/lib/utils";
 import { TeamColor, TeamHoverColor } from "@/lib/constants";
 
+const credential = JSON.parse(
+  Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS!, "base64")
+    .toString()
+    .replace(/\n/g, "")
+);
+
 const sheetsAuth = new auth.GoogleAuth({
-  keyFile: "./google.json",
+  credentials: credential,
   scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
 
@@ -83,7 +89,7 @@ export const getTeamData = cache(async () => {
   // ("use server");
   // Get responses from Google Sheets
   const responses = await getSheetResponses(
-    "1Ipe_w73YweHwb7IUg7nv6QiVebuXy5rXDkkmfgN5i84",
+    process.env.FORM_SHEET_ID!,
     "Form Responses 1"
   );
 
