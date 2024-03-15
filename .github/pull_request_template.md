@@ -6,7 +6,6 @@
 
 ## Check List
 
-<!-- TODO: Uncomment if shared project -->
 <!-- - [ ] Checked to ensure there aren't other open [Pull Requests](https://github.com/amjedidiah/free-tribe-network/pulls) for the same update/change :eyes: -->
 - [ ] Commented on the code that is hard to understand :bulb:
 - [ ] Removed all unnecessary logs and comments :fire:

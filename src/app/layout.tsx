@@ -1,18 +1,17 @@
-import { inter } from "@/lib/fonts";
+import { inter, montserrat } from "@/lib/fonts";
 import "@/globals.css";
 import { PropsWithChildren } from "react";
-
-// TODO
-// export const metadata: Metadata = {
-//   title: "",
-//   description: "",
-// };
+import Header from "@/components/layout/header";
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <html lang="en" className={`${inter.variable} font-inter`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${montserrat.variable} font-inter`}
+    >
       <body>
-        <main>{children}</main>
+        <Header />
+        <main className="mt-20">{children}</main>
       </body>
     </html>
   );

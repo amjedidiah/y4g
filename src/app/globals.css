@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        @apply h-full;
+    }
+
+    body {
+        @apply min-h-full;
+    }
+
+    h1, h2, h3, h4, h5, a, button {
+        @apply font-montserrat
+    }
+}
