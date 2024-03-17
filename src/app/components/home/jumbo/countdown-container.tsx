@@ -1,15 +1,6 @@
 import Countdown from "@/components/home/jumbo/countdown";
 import WeAreLive from "@/components/home/jumbo/we-are-live";
 
-type TimerObject =
-  | {
-      days: number;
-      hours: string;
-      minutes: string;
-      seconds: string;
-    }
-  | undefined;
-
 export default function CountdownContainer() {
   return (
     <div className="flex justify-center uppercase">

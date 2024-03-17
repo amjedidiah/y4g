@@ -1,7 +1,7 @@
 import { auth, sheets } from "@googleapis/sheets";
 import { TeamData } from "@/lib/types";
 import { cache } from "react";
-import { getThirdSunday } from "@/lib/utils";
+import { getEventSundaysInfo } from "./utils";
 import { TeamColor, TeamHoverColor } from "@/lib/constants";
 
 const credential = JSON.parse(
@@ -15,29 +15,35 @@ const sheetsAuth = new auth.GoogleAuth({
   scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
 
-function isBetweenThirdSundays(date: Date) {
+function isBetweenValidThirdSundays(date: Date) {
   // Get the 3rd Sundays of previous and current month
-  const prevMonthSunday = getThirdSunday(date.getMonth() - 1);
-  const thisMonthSunday = getThirdSunday();
+  const { nextEventSunday, prevEventSunday } = getEventSundaysInfo();
 
   // Adjust for edge case: If previous month's 3rd Sunday is after current year
-  if (prevMonthSunday.getFullYear() > thisMonthSunday.getFullYear()) {
-    prevMonthSunday.setFullYear(prevMonthSunday.getFullYear() - 1);
-  }
+  if (prevEventSunday.getFullYear() > nextEventSunday.getFullYear())
+    prevEventSunday.setFullYear(prevEventSunday.getFullYear() - 1);
 
   // Check if the date is between (excluding endpoints)
-  return date > prevMonthSunday && date < thisMonthSunday;
+  return date > prevEventSunday && date < nextEventSunday;
 }
 
 function filterSheetResponses(responses: string[][]) {
   // Filter out the ones not attending
-  const attendingResponses = responses.filter(
-    (item) => !item.includes("Sorry, can't make it")
-  );
+  // const attendingResponses = responses.filter(
+  //   (item) => !item.includes("Sorry, can't make it")
+  // );
+
+  // Filter responses for new members
+  const newResponses = responses.filter((item, i) => {
+    const checkDate = new Date(item[0]);
+    const isBetween = isBetweenValidThirdSundays(checkDate);
+
+    return isBetween;
+  });
 
   // Filter for uniqueness
   const uniqueResponses: string[][] = [];
-  for (let fields of attendingResponses) {
+  for (let fields of newResponses) {
     const name = fields[2].toLowerCase();
     const phone = fields[3].toLowerCase();
     const email = fields[4].toLowerCase();
@@ -60,15 +66,7 @@ function filterSheetResponses(responses: string[][]) {
     }
   }
 
-  // Finally, filter responses that are valid for the current month
-  const validDateResponses = uniqueResponses.filter((item, i) => {
-    const checkDate = new Date(item[0]);
-    const isBetween = isBetweenThirdSundays(checkDate);
-
-    return isBetween;
-  });
-
-  return validDateResponses;
+  return uniqueResponses;
 }
 
 async function getSheetResponses(spreadsheetId: string, range: string) {
@@ -86,7 +84,6 @@ async function getSheetResponses(spreadsheetId: string, range: string) {
 }
 
 export const getTeamData = cache(async () => {
-  // ("use server");
   // Get responses from Google Sheets
   const responses = await getSheetResponses(
     process.env.FORM_SHEET_ID!,
@@ -105,12 +102,12 @@ export const getTeamData = cache(async () => {
 
     return {
       ...acc,
-      [teamName]: {
-        ...acc[teamName],
+      [teamId]: {
+        ...acc[teamId],
         id: teamId,
         name: teamName,
         members: [
-          ...(acc[teamName]?.members || []),
+          ...(acc[teamId]?.members || []),
           {
             name: item[2],
             phone: item[3],

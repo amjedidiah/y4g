@@ -26,9 +26,8 @@ export function getThirdSunday(month = new Date().getMonth()) {
   return date;
 }
 
-export function countdownToThirdSundayWAT(now = new Date()) {
-  // Get the 3rd Sunday of the current month
-  const targetDate = getThirdSunday();
+export function countdownToThirdSundayWAT(targetDate = getThirdSunday()) {
+  const now = new Date();
 
   // Set target time to 4pm WAT
   targetDate.setHours(16, 0, 0, 0); // 16 for 4pm (WAT is UTC+1)
@@ -43,9 +42,9 @@ export function countdownToThirdSundayWAT(now = new Date()) {
       now.getTime() >= targetDate.getTime() && now.getHours() < 18;
 
     if (isOngoing) return;
-    return countdownToThirdSundayWAT(
-      new Date(now.getFullYear(), now.getMonth() + 1, 1)
-    );
+
+    const nextThirdSunday = getThirdSunday(new Date().getMonth() + 1);
+    return countdownToThirdSundayWAT(nextThirdSunday);
   }
 
   // Calculate days, hours, minutes, and seconds
@@ -70,4 +69,18 @@ export const isOngoingFetcher = () => {
   const isOngoing = !timerObject;
 
   return isOngoing;
+};
+
+export const getEventSundaysInfo = (date = new Date()) => {
+  const thisMonthSunday = getThirdSunday();
+  const thirdSundayIsPassed = date.getTime() >= thisMonthSunday.getTime();
+
+  const nextEventSunday = thirdSundayIsPassed
+    ? getThirdSunday(date.getMonth() + 1)
+    : thisMonthSunday;
+  const prevEventSunday = thirdSundayIsPassed
+    ? thisMonthSunday
+    : getThirdSunday(date.getMonth() - 1);
+
+  return { thirdSundayIsPassed, nextEventSunday, prevEventSunday };
 };

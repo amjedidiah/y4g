@@ -1,7 +1,6 @@
 import CountdownContainer from "@/components/home/jumbo/countdown-container";
 import EventAction from "@/components/shared/event-action";
-
-const currentMonth = new Date().toLocaleString("en-US", { month: "long" });
+import { monthInFocus } from "@/lib/constants";
 
 export default function HomeJumbo() {
   return (
@@ -10,7 +9,7 @@ export default function HomeJumbo() {
         <div className="flex flex-col gap-1 sm:gap-2 max-lg:items-center max-lg:text-center">
           <div>
             <h5 className="uppercase relative max-sm:top-1 text-lg">
-              <span className="text-primary font-bold">{currentMonth}</span>{" "}
+              <span className="text-primary font-bold">{monthInFocus}</span>{" "}
               edition
             </h5>
             <div className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl uppercase font-medium relative lg:-left-2 xl:-left-3">

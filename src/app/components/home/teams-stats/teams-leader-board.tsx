@@ -18,7 +18,7 @@ export default function TeamsLeaderBoard({ data }: Props) {
         ))}
       </div>
       <p className="text-secondary">
-        ** Team position, Team name, No. of registered participants
+        ** Team position, Team name, No. of new team members
       </p>
     </div>
   );

@@ -1,3 +1,5 @@
+import { getEventSundaysInfo } from "@/lib/utils";
+
 export enum TeamColor {
   team1 = "#010000",
   team2 = "#fbab0d",
@@ -18,3 +20,8 @@ export enum TeamId {
   team3 = "team3",
   team4 = "team4",
 }
+
+export const monthInFocus =
+  getEventSundaysInfo().nextEventSunday.toLocaleString("en-US", {
+    month: "long",
+  });
