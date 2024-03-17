@@ -3,5 +3,6 @@ import useSWR from "swr";
 
 export default function useIsOngoing() {
   const { data: isOngoing } = useSWR("/is-ongoing", isOngoingFetcher);
-  return isOngoing;
+  // return isOngoing;
+  return false;
 }
