@@ -15,11 +15,11 @@ export default function HomeJumbo() {
             <div className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl uppercase font-medium relative lg:-left-2 xl:-left-3">
               <h1 className="sm:leading-[0.85]">
                 <span className="text-secondary ms-0 ps-0">My</span>
-                <span className="font-extralight"> life</span>
+                <span className="font-extralight"> altar</span>
               </h1>
               <h1 className="sm:leading-[0.85]">
                 <span className="font-extralight">My </span>
-                <span className="text-secondary">Altar</span>
+                <span className="text-secondary">destiny</span>
               </h1>
             </div>
           </div>
