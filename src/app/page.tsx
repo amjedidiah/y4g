@@ -1,5 +1,5 @@
 import HomeJumbo from "@/components/home/home-jumbo";
-import TeamsStatsContainer from "@/components/home/teams-stats/teams-stats-container";
+import TeamsContainer from "@/components/home/teams-stats/teams-container";
 import { Metadata } from "next";
 import { Fragment } from "react";
 
@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <Fragment>
       <HomeJumbo />
-      <TeamsStatsContainer />
+      <TeamsContainer />
     </Fragment>
   );
 }

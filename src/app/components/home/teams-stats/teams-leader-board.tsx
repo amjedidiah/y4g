@@ -10,14 +10,14 @@ export default function TeamsLeaderBoard({ data }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-4xl lg:text-5xl font-semibold">Leaderboard</h1>
+      <h1 className="text-4xl lg:text-5xl font-semibold">Team Members</h1>
 
       <div className="flex flex-col gap-4">
         {data.map((team, i) => (
           <Scorecard key={team.id} scoresStack={scoresStack} {...team} />
         ))}
       </div>
-      <p className="text-secondary">
+      <p className="text-xs">
         ** Team position, Team name, No. of new team members
       </p>
     </div>

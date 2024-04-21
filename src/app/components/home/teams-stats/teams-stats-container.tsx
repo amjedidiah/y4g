@@ -1,24 +1,42 @@
+"use client";
 import TeamsChart from "@/components/home/teams-stats/teams-chart";
-import {
-  getLeaderBoardData,
-  getTeamChartData,
-  getTeamData,
-} from "@/lib/actions";
 import TeamsLeaderBoard from "@/components/home/teams-stats/teams-leader-board";
+import { Individual, Team, TeamChartData } from "@/lib/types";
+import { useCallback, useState } from "react";
+import TeamMembers from "@/components/home/teams-stats/team-members";
 
-export default async function TeamsStatsContainer() {
-  const teamData = await getTeamData();
-  const chartData = getTeamChartData(teamData);
-  const leaderBoardData = getLeaderBoardData(teamData);
+type Props = {
+  chartData: TeamChartData;
+  leaderBoardData: Team[];
+};
+
+export default function TeamsStatsContainer({
+  chartData,
+  leaderBoardData,
+}: Props) {
+  const [activeTeamMembers, setActiveTeamMembers] = useState<Individual[]>();
+
+  const handleActiveTeamColor = useCallback(
+    (teamColor: string) => {
+      const filteredMembers = leaderBoardData.filter(
+        (item) =>
+          item.hoverColor.toLowerCase() === teamColor.toLowerCase() ||
+          item.color.toLowerCase() === teamColor.toLowerCase()
+      )[0]?.members;
+
+      setActiveTeamMembers(filteredMembers);
+    },
+    [leaderBoardData]
+  );
 
   return (
-    <section id="teams" className="bg-slate-100 py-10 lg:py-14">
-      <article className="container flex flex-col gap-6 lg:gap-8">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
-          <TeamsChart {...chartData} />
-          <TeamsLeaderBoard data={leaderBoardData} />
-        </div>
-      </article>
-    </section>
+    <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <TeamsChart
+        onHandleActiveTeamColor={handleActiveTeamColor}
+        {...chartData}
+      />
+      <TeamsLeaderBoard data={leaderBoardData} />
+      <TeamMembers teamMembers={activeTeamMembers} teamName="" />
+    </div>
   );
 }

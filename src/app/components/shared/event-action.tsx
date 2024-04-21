@@ -1,18 +1,18 @@
 "use client";
 import useIsOngoing from "@/hooks/use-is-ongoing";
 import { cn } from "@/lib/utils";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 
 type Props = {
   isShort?: boolean;
 };
 
-export default function EventAction({ isShort }: Props) {
+function EventAction({ isShort }: Props) {
   const isOngoing = useIsOngoing();
   const actionText = useMemo(() => {
     if (isShort) return isOngoing ? "Watch" : "Register";
-    return isOngoing ? "Watch live event" : "Register to attend";
+    return isOngoing ? "Watch live event" : "Register to a team";
   }, [isOngoing, isShort]);
   const actionLink = useMemo(
     () =>
@@ -38,3 +38,5 @@ export default function EventAction({ isShort }: Props) {
     </a>
   );
 }
+
+export default memo(EventAction);

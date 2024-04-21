@@ -1,7 +1,7 @@
 import { auth, sheets } from "@googleapis/sheets";
 import { TeamData } from "@/lib/types";
 import { cache } from "react";
-import { getEventSundaysInfo } from "./utils";
+// import { getEventSundaysInfo } from "./utils";
 import { TeamColor, TeamHoverColor } from "@/lib/constants";
 
 const credential = JSON.parse(
@@ -15,17 +15,17 @@ const sheetsAuth = new auth.GoogleAuth({
   scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
 
-function isBetweenValidThirdSundays(date: Date) {
-  // Get the 3rd Sundays of previous and current month
-  const { nextEventSunday, prevEventSunday } = getEventSundaysInfo();
+// function isBetweenValidThirdSundays(date: Date) {
+//   // Get the 3rd Sundays of previous and current month
+//   const { nextEventSunday, prevEventSunday } = getEventSundaysInfo();
 
-  // Adjust for edge case: If previous month's 3rd Sunday is after current year
-  if (prevEventSunday.getFullYear() > nextEventSunday.getFullYear())
-    prevEventSunday.setFullYear(prevEventSunday.getFullYear() - 1);
+//   // Adjust for edge case: If previous month's 3rd Sunday is after current year
+//   if (prevEventSunday.getFullYear() > nextEventSunday.getFullYear())
+//     prevEventSunday.setFullYear(prevEventSunday.getFullYear() - 1);
 
-  // Check if the date is between (excluding endpoints)
-  return date > prevEventSunday && date < nextEventSunday;
-}
+//   // Check if the date is between (excluding endpoints)
+//   return date > prevEventSunday && date < nextEventSunday;
+// }
 
 function filterSheetResponses(responses: string[][]) {
   // Filter out the ones not attending
@@ -34,16 +34,16 @@ function filterSheetResponses(responses: string[][]) {
   // );
 
   // Filter responses for new members
-  const newResponses = responses.filter((item, i) => {
-    const checkDate = new Date(item[0]);
-    const isBetween = isBetweenValidThirdSundays(checkDate);
+  // const newResponses = responses.filter((item, i) => {
+  //   const checkDate = new Date(item[0]);
+  //   const isBetween = isBetweenValidThirdSundays(checkDate);
 
-    return isBetween;
-  });
+  //   return isBetween;
+  // });
 
   // Filter for uniqueness
   const uniqueResponses: string[][] = [];
-  for (let fields of newResponses) {
+  for (let fields of responses) {
     const name = fields[2].toLowerCase();
     const phone = fields[3].toLowerCase();
     const email = fields[4].toLowerCase();
@@ -123,7 +123,8 @@ export const getTeamData = cache(async () => {
   return teamData;
 });
 
-export const getTeamChartData = (teamData: TeamData) => {
+export const getTeamChartData = async () => {
+  const teamData = await getTeamData();
   const teams = Object.values(teamData);
 
   let labels = [];
@@ -146,5 +147,9 @@ export const getTeamChartData = (teamData: TeamData) => {
   };
 };
 
-export const getLeaderBoardData = (teamData: TeamData) =>
-  Object.values(teamData).sort((a, b) => b.members.length - a.members.length);
+export const getLeaderBoardData = async () => {
+  const teamData = await getTeamData();
+  return Object.values(teamData).sort(
+    (a, b) => b.members.length - a.members.length
+  );
+};
