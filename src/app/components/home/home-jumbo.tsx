@@ -12,14 +12,22 @@ export default function HomeJumbo() {
               <span className="text-primary font-bold">{monthInFocus}</span>{" "}
               edition
             </h5>
-            <div className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl uppercase font-medium relative lg:-left-2 xl:-left-3">
-              <h1 className="sm:leading-[0.85]">
+            <div className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl uppercase font-medium relative lg:-left-2 xl:-left-3">
+              {/* <h1 className="sm:leading-[0.85]">
                 <span className="text-secondary ms-0 ps-0">My</span>
                 <span className="font-extralight"> altar</span>
               </h1>
               <h1 className="sm:leading-[0.85]">
                 <span className="font-extralight">My </span>
                 <span className="text-secondary">destiny</span>
+              </h1> */}
+              <h1 className="sm:leading-[0.85]">
+                <span className="text-secondary ms-0 ps-0">Anticipate</span>
+                <span className="font-extralight"> our</span>
+              </h1>
+              <h1 className="sm:leading-[0.85]">
+                <span className="font-extralight">next </span>
+                <span className="text-secondary">theme</span>
               </h1>
             </div>
           </div>
