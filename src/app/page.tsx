@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://y4g.vercel.app/twitter-image.png?46090339ab56775f=",
+        url: "https://i.ibb.co/D1cY9fZ/twitter-image.png",
         width: 964,
         height: 506,
       },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     creator: "@am_jedidiah",
-    images: ["https://y4g.vercel.app/twitter-image.png?46090339ab56775f="], // Must be an absolute URL
+    images: ["https://i.ibb.co/D1cY9fZ/twitter-image.png"], // Must be an absolute URL
   },
 };
 
