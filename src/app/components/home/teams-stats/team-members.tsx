@@ -18,10 +18,6 @@ export default function TeamMembers({ teamName, teamMembers }: Props) {
             key={phone}
           >
             <p className="capitalize font-semibold">{name}</p>
-            <div className="flex flex-col gap-[1px]">
-              <p>{email}</p>
-              <p>{phone}</p>
-            </div>
           </div>
         ))}
       </div>
